@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Основная программа для управления библиотеками
  */
 public class LibraryManager {
-    private static List<Library> libraries = new ArrayList<>();
+    private static LibraryRepository libraryRepository = new LibraryRepository();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -76,7 +76,7 @@ public class LibraryManager {
     }
 
     private static void showBookManagementMenu() {
-        if (libraries.isEmpty()) {
+        if (libraryRepository.size() == 0) {
             System.out.println("Сначала создайте хотя бы одну библиотеку!");
             return;
         }
@@ -105,7 +105,7 @@ public class LibraryManager {
     }
 
     private static void showSearchMenu() {
-        if (libraries.isEmpty()) {
+        if (libraryRepository.size() == 0) {
             System.out.println("Сначала создайте хотя бы одну библиотеку!");
             return;
         }
@@ -145,20 +145,24 @@ public class LibraryManager {
 
         try {
             Library library = new Library(name);
-            libraries.add(library);
-            System.out.println("Библиотека \"" + name + "\" успешно создана!");
+            if (libraryRepository.add(library)) {
+                System.out.println("Библиотека \"" + name + "\" успешно создана!");
+            } else {
+                System.out.println("Библиотека с таким названием уже существует.");
+            }
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
 
     private static void showAllLibraries() {
-        if (libraries.isEmpty()) {
+        if (libraryRepository.size() == 0) {
             System.out.println("Библиотек нет.");
             return;
         }
 
         System.out.println("\n=== СПИСОК БИБЛИОТЕК ===");
+        List<Library> libraries = libraryRepository.getAll();
         for (int i = 0; i < libraries.size(); i++) {
             System.out.println((i + 1) + ". " + libraries.get(i));
         }
@@ -166,12 +170,13 @@ public class LibraryManager {
 
     private static void deleteLibrary() {
         showAllLibraries();
-        if (libraries.isEmpty()) return;
+        if (libraryRepository.size() == 0) return;
 
         int index = getIntInput("Введите номер библиотеки для удаления: ") - 1;
-        if (index >= 0 && index < libraries.size()) {
-            String name = libraries.get(index).getName();
-            libraries.remove(index);
+        if (index >= 0 && index < libraryRepository.size()) {
+            Library library = libraryRepository.get(index);
+            String name = library.getName();
+            libraryRepository.remove(library);
             System.out.println("Библиотека \"" + name + "\" удалена.");
         } else {
             System.out.println("Неверный номер библиотеки.");
@@ -225,6 +230,7 @@ public class LibraryManager {
         System.out.println("\n=== РЕЗУЛЬТАТЫ ПОИСКА ПО АВТОРУ: " + author + " ===");
         boolean found = false;
 
+        List<Library> libraries = libraryRepository.getAll();
         for (Library library : libraries) {
             List<Book> books = library.getBooksByAuthor(author);
             if (!books.isEmpty()) {
@@ -248,6 +254,7 @@ public class LibraryManager {
         System.out.println("\n=== РЕЗУЛЬТАТЫ ПОИСКА ПО НАЗВАНИЮ: " + title + " ===");
         boolean found = false;
 
+        List<Library> libraries = libraryRepository.getAll();
         for (Library library : libraries) {
             List<Book> books = library.searchBooksByTitle(title);
             if (!books.isEmpty()) {
@@ -270,6 +277,7 @@ public class LibraryManager {
         System.out.println("\n=== РЕЗУЛЬТАТЫ ПОИСКА ПО ГОДУ: " + year + " ===");
         boolean found = false;
 
+        List<Library> libraries = libraryRepository.getAll();
         for (Library library : libraries) {
             List<Book> books = library.getBooksByYear(year);
             if (!books.isEmpty()) {
@@ -287,7 +295,7 @@ public class LibraryManager {
     }
 
     private static void showStatistics() {
-        if (libraries.isEmpty()) {
+        if (libraryRepository.size() == 0) {
             System.out.println("Библиотек нет.");
             return;
         }
@@ -295,6 +303,7 @@ public class LibraryManager {
         System.out.println("\n=== СТАТИСТИКА ===");
         int totalBooks = 0;
 
+        List<Library> libraries = libraryRepository.getAll();
         for (Library library : libraries) {
             System.out.println(library.getStatistics());
             totalBooks += library.getBookCount();
@@ -308,7 +317,7 @@ public class LibraryManager {
     // === ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ===
 
     private static Library selectLibrary() {
-        if (libraries.isEmpty()) {
+        if (libraryRepository.size() == 0) {
             System.out.println("Библиотек нет.");
             return null;
         }
@@ -316,8 +325,8 @@ public class LibraryManager {
         showAllLibraries();
         int index = getIntInput("Выберите библиотеку: ") - 1;
 
-        if (index >= 0 && index < libraries.size()) {
-            return libraries.get(index);
+        if (index >= 0 && index < libraryRepository.size()) {
+            return libraryRepository.get(index);
         } else {
             System.out.println("Неверный номер библиотеки.");
             return null;
