@@ -1,20 +1,23 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Менеджер для выполнения запросов к репозиторию товаров.
+ */
 public class ProductManager {
-    private List<Product> products;
+    private ProductRepository repository;
 
-    public ProductManager() {
-        this.products = new ArrayList<>();
+    public ProductManager(ProductRepository repository) {
+        this.repository = repository;
     }
 
     public void addProduct(Product product) {
-        products.add(product);
+        repository.add(product);
     }
 
     public List<Product> getProductsByName(String name) {
         List<Product> result = new ArrayList<>();
-        for (Product product : products) {
+        for (Product product : repository.getAll()) {
             if (product.getName().equalsIgnoreCase(name)) {
                 result.add(product);
             }
@@ -24,7 +27,7 @@ public class ProductManager {
 
     public List<Product> getProductsByNameAndMaxPrice(String name, double maxPrice) {
         List<Product> result = new ArrayList<>();
-        for (Product product : products) {
+        for (Product product : repository.getAll()) {
             if (product.getName().equalsIgnoreCase(name) && product.getPrice() <= maxPrice) {
                 result.add(product);
             }
@@ -34,7 +37,7 @@ public class ProductManager {
 
     public List<Product> getProductsWithShelfLifeGreaterThan(int minShelfLife) {
         List<Product> result = new ArrayList<>();
-        for (Product product : products) {
+        for (Product product : repository.getAll()) {
             if (product.getShelfLife() > minShelfLife) {
                 result.add(product);
             }
@@ -43,6 +46,6 @@ public class ProductManager {
     }
 
     public List<Product> getAllProducts() {
-        return new ArrayList<>(products);
+        return repository.getAll();
     }
 }
