@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e504462-1210-434b-af17-894c3215b2cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../1/untitled/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../1/untitled/src/ProductRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BookRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LibraryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../1/untitled/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/../../1/untitled/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../1/untitled/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../1/untitled/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../1/untitled/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../1/untitled/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../1/untitled/src/ProductManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../1/untitled/src/ProductManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Library.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LibraryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LibraryManager.java" afterDir="false" />
-    </list>
+    <list default="true" id="3e504462-1210-434b-af17-894c3215b2cc" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,12 +17,9 @@
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
   <component name="ProjectId" id="35ZnWqY69F11nV3bBEkWmwR13w3" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,10 +31,6 @@
     "Application.LibraryManager.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "refactor",
-    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "onboarding.tips.debug.path": "D:/Labs/ВвРПО/lab3/untitled/src/Main.java"
   }

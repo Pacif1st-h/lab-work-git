@@ -4,8 +4,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ProductRepository repository = new ProductRepository();
-        ProductManager manager = new ProductManager(repository);
+        ProductManager manager = new ProductManager();
 
         System.out.println("=== Ввод данных о товарах ===");
 

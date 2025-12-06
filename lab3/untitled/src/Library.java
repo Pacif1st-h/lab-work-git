@@ -2,67 +2,109 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Класс Library представляет библиотеку с репозиторием книг.
+ * Класс Library представляет библиотеку с коллекцией книг.
  */
 public class Library {
     private final String name;
-    private final BookRepository bookRepository;
+    private final List<Book> books;
 
     public Library(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Название библиотеки не может быть пустым");
         }
         this.name = name.trim();
-        this.bookRepository = new BookRepository(); // используем репозиторий
+        this.books = new ArrayList<>();
     }
 
     /**
      * Добавляет книгу в библиотеку
      */
     public boolean addBook(Book book) {
-        return bookRepository.add(book);
+        if (book == null) {
+            return false;
+        }
+
+        // Проверяем, есть ли уже такая книга
+        for (Book existingBook : books) {
+            if (existingBook.getTitle().equalsIgnoreCase(book.getTitle()) &&
+                    existingBook.getAuthor().equalsIgnoreCase(book.getAuthor()) &&
+                    existingBook.getYear() == book.getYear()) {
+                return false; // книга уже есть
+            }
+        }
+
+        books.add(book);
+        return true;
     }
 
     /**
      * Ищет книги по автору
      */
     public List<Book> getBooksByAuthor(String author) {
-        return bookRepository.findByAuthor(author);
+        List<Book> result = new ArrayList<>();
+        if (author == null || author.trim().isEmpty()) {
+            return result;
+        }
+
+        String searchAuthor = author.trim().toLowerCase();
+        for (Book book : books) {
+            if (book.getAuthor().toLowerCase().equals(searchAuthor)) {
+                result.add(book);
+            }
+        }
+        return result;
     }
 
     /**
      * Ищет книги по названию
      */
     public List<Book> searchBooksByTitle(String title) {
-        return bookRepository.findByTitle(title);
+        List<Book> result = new ArrayList<>();
+        if (title == null || title.trim().isEmpty()) {
+            return result;
+        }
+
+        String searchTitle = title.trim().toLowerCase();
+        for (Book book : books) {
+            if (book.getTitle().toLowerCase().contains(searchTitle)) {
+                result.add(book);
+            }
+        }
+        return result;
     }
 
     /**
      * Ищет книги по году
      */
     public List<Book> getBooksByYear(int year) {
-        return bookRepository.findByYear(year);
+        List<Book> result = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getYear() == year) {
+                result.add(book);
+            }
+        }
+        return result;
     }
 
     /**
      * Возвращает все книги
      */
     public List<Book> getAllBooks() {
-        return bookRepository.getAll();
+        return new ArrayList<>(books);
     }
 
     /**
      * Возвращает количество книг
      */
     public int getBookCount() {
-        return bookRepository.size();
+        return books.size();
     }
 
     /**
      * Удаляет книгу
      */
     public boolean removeBook(Book book) {
-        return bookRepository.remove(book);
+        return books.remove(book);
     }
 
     public String getName() {
@@ -71,21 +113,20 @@ public class Library {
 
     @Override
     public String toString() {
-        return "Библиотека: \"" + name + "\" (книг: " + bookRepository.size() + ")";
+        return "Библиотека: \"" + name + "\" (книг: " + books.size() + ")";
     }
 
     /**
      * Простая статистика
      */
     public String getStatistics() {
-        List<Book> allBooks = bookRepository.getAll();
-        if (allBooks.isEmpty()) {
+        if (books.isEmpty()) {
             return "В библиотеке \"" + name + "\" нет книг";
         }
 
         // Считаем уникальных авторов
         List<String> authors = new ArrayList<>();
-        for (Book book : allBooks) {
+        for (Book book : books) {
             String author = book.getAuthor();
             if (!authors.contains(author)) {
                 authors.add(author);
@@ -93,15 +134,15 @@ public class Library {
         }
 
         // Находим минимальный и максимальный год
-        int minYear = allBooks.get(0).getYear();
-        int maxYear = allBooks.get(0).getYear();
-        for (Book book : allBooks) {
+        int minYear = books.get(0).getYear();
+        int maxYear = books.get(0).getYear();
+        for (Book book : books) {
             int year = book.getYear();
             if (year < minYear) minYear = year;
             if (year > maxYear) maxYear = year;
         }
 
-        return "Библиотека: \"" + name + "\"\nКниг: " + allBooks.size() +
+        return "Библиотека: \"" + name + "\"\nКниг: " + books.size() +
                 ", Авторов: " + authors.size() + ", Годы: " + minYear + "-" + maxYear;
     }
 }
